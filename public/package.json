@@ -1,0 +1,32 @@
+{
+  "name": "bookmark-sharp",
+  "pluginName": "bookmark-sharp",
+  "version": "0.0.1",
+  "description": "自定义书签",
+  "main": "index.html",
+  "preload": "preload.js",
+  "logo": "https://define9.github.io/images/favicon.ico",
+  "pluginType": "ui",
+  "features": [
+    {
+      "code": "bookmark",
+      "explain": "自定义书签",
+      "cmds": [
+        "bookmark",
+        "书签"
+      ]
+    },
+    {
+      "code": "setting",
+      "explain": "自定义书签-设置",
+      "cmds": [
+        "setting",
+        "书签设置"
+      ]
+    }
+  ],
+  "author": "define9",
+  "license": "ISC",
+  "development": "http://localhost:4001",
+  "homePage": "https://gitee.com/rubick-center/rubick-plugin-demo/raw/master/README.md"
+}
