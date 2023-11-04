@@ -5,6 +5,10 @@ export const PageType = {
   About: 3,
 }
 
+export const Config = {
+  MaxRecentlyRecordCount: 10,
+}
+
 const keyRoot = 'bookmark-sharp'
 export const DBKey = {
   root: keyRoot,

@@ -3,6 +3,11 @@
       "bookmark_bar": {
          "children": [
             {
+               "name": "blog2",
+               "type": "url",
+               "url": "https://syhu.com.cn"
+            },
+            {
                "children": [
                   {
                      "children": [

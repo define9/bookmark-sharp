@@ -14,6 +14,13 @@
   <a-row v-if="file.valid">
     <a-alert type="success">已检测到您的书签文件：{{ file.fileInfo.name }}</a-alert>
   </a-row>
+  <a-space direction="vertical" class="btn-group">
+    <a-space>
+      <a-popconfirm content="确定删除?" @ok="clearRecent">
+      <a-button type="outline" status="danger">清空最近访问的书签</a-button>
+    </a-popconfirm>
+    </a-space>
+  </a-space>
 </template>
   
 <script>
@@ -100,6 +107,10 @@ export default {
     jumpGithub() {
       rubick.shellOpenExternal('https://github.com/define9/bookmark-sharp')
     },
+    clearRecent() {
+      rubick.db.remove(DBKey.recently)
+      this.$message.success('已清除最近访问')
+    }
   },
   mounted() {
     let file = rubick.db.get(DBKey.origin)?.data
@@ -115,6 +126,10 @@ export default {
 <style scoped>
 * {
   overflow: hidden;
+}
+
+.btn-group {
+  margin: 10px;
 }
 
 .arco-spin {

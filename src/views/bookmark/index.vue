@@ -25,13 +25,14 @@
 </template>
 
 <script>
-import { DBKey } from "@/common";
+import { DBKey, Config } from "@/common";
 import { Search } from "@/common/search";
 
 export default {
   data() {
     return {
       interestedBookmarks: [],
+      recentlyBookmarks: [],
       bookmarkArray: [],
       input: '',
       search: null,
@@ -44,8 +45,21 @@ export default {
     }
   },
   methods: {
+    markRecent(bookmark) {
+      this.recentlyBookmarks = this.recentlyBookmarks?.filter(x => x.name != bookmark.name)
+      this.recentlyBookmarks?.unshift(bookmark)
+      if (this.recentlyBookmarks?.length > Config.MaxRecentlyRecordCount)
+        this.recentlyBookmarks.pop()
+
+      let recentDB = rubick.db.get(DBKey.recently)
+      rubick.db.put({
+        _id: DBKey.recently,
+        data: JSON.stringify(this.recentlyBookmarks),
+        _rev: recentDB?._rev,
+      })
+    },
     clickHandle(bookmark) {
-      console.log(bookmark)
+      this.markRecent(bookmark)
       rubick.shellOpenExternal(bookmark.url)
     },
     activeFirst() {
@@ -61,14 +75,17 @@ export default {
     }
   },
   mounted() {
-    this.listStyle.maxHeight = this.$refs.bookmark.offetHeight
+    this.listStyle.maxHeight = this.$refs.bookmark.offsetHeight
     this.bookmarkArray = rubick.db.get(DBKey.processed)?.data
     this.search = new Search(this.bookmarkArray)
 
     rubick.setSubInput(({ text }) => {
       this.input = text.trim()
-      this.interestedBookmarks = this.search.search(this.input).map(x => x.item)
-      console.log(this.interestedBookmarks[0])
+      let result = this.search.search(this.input).map(x => x.item)
+      if (!result?.length)
+        result = this.recentlyBookmarks
+      
+      this.interestedBookmarks = result
     }, '搜索您的书签')
 
     document.onkeydown = this.keydown
@@ -76,6 +93,13 @@ export default {
     let file = rubick.db.get(DBKey.origin)?.data
     if (!file) {
       rubick.showNotification('没有检测到书签，请先进入setting进行设置')
+    } else {
+      let recentStr = rubick.db.get(DBKey.recently)?.data
+      if (recentStr)
+        this.recentlyBookmarks = JSON.parse(recentStr)
+      if (!this.recentlyBookmarks?.length)
+        this.recentlyBookmarks = this.bookmarkArray.slice(0, 10)
+      this.interestedBookmarks = this.recentlyBookmarks
     }
   },
 }
