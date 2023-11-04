@@ -2,7 +2,7 @@
   "name": "rubick-bookmark-sharp",
   "pluginName": "bookmark-sharp",
   "version": "0.0.1",
-  "description": "自定义书签",
+  "description": "自定义书签搜索，快速在浏览器打开",
   "main": "index.html",
   "preload": "preload.js",
   "logo": "https://define9.github.io/images/favicon.ico",
@@ -27,5 +27,5 @@
   ],
   "author": "define9",
   "license": "ISC",
-  "homePage": "https://github.com/define9/bookmark-sharp#readme"
+  "homePage": "https://raw.githubusercontent.com/define9/bookmark-sharp/main/README.md"
 }
