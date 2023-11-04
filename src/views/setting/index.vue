@@ -8,7 +8,7 @@
   </a-spin>
   <a-row>
     <a-col>
-      <a-alert>选择您的书签文件，重复上传则覆盖</a-alert>
+      <a-alert>选择您的书签文件，重复上传则覆盖，<a href="javascript:void(0);" @click="jumpGithub">查看案例</a></a-alert>
     </a-col>
   </a-row>
   <a-row v-if="file.valid">
@@ -97,11 +97,16 @@ export default {
         }
       });
     },
+    jumpGithub() {
+      rubick.shellOpenExternal('https://github.com/define9/bookmark-sharp')
+    },
   },
   mounted() {
     let file = rubick.db.get(DBKey.origin)?.data
-    this.file = JSON.parse(file)
-    console.log(this.file)
+    if (file) {
+      this.file = JSON.parse(file)
+      console.log(this.file)
+    }
   },
 }
 </script>

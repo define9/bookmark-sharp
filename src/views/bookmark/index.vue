@@ -72,6 +72,11 @@ export default {
     }, '搜索您的书签')
 
     document.onkeydown = this.keydown
+
+    let file = rubick.db.get(DBKey.origin)?.data
+    if (!file) {
+      rubick.showNotification('没有检测到书签，请先进入setting进行设置')
+    }
   },
 }
 </script>
