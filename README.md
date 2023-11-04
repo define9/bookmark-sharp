@@ -35,4 +35,4 @@
 }
 ```
 
-![Alt text](./public/1699036041436.jpg)
+![Alt text](./doc/image1.png)

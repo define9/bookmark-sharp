@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     clickHandle(bookmark) {
-      console.log(bookmark);
+      console.log(bookmark)
       rubick.shellOpenExternal(bookmark.url)
     },
     activeFirst() {
@@ -61,13 +61,14 @@ export default {
     }
   },
   mounted() {
+    this.listStyle.maxHeight = this.$refs.bookmark.offetHeight
     this.bookmarkArray = rubick.db.get(DBKey.processed)?.data
     this.search = new Search(this.bookmarkArray)
 
     rubick.setSubInput(({ text }) => {
       this.input = text.trim()
       this.interestedBookmarks = this.search.search(this.input).map(x => x.item)
-      console.log(this.interestedBookmarks[0]);
+      console.log(this.interestedBookmarks[0])
     }, '搜索您的书签')
 
     document.onkeydown = this.keydown
