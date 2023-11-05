@@ -81,11 +81,11 @@ export default {
 
     rubick.setSubInput(({ text }) => {
       this.input = text.trim()
-      let result = this.search.search(this.input).map(x => x.item)
-      if (!result?.length)
-        result = this.recentlyBookmarks
-      
-      this.interestedBookmarks = result
+      if (this.input) {
+        this.interestedBookmarks = this.search.search(this.input).map(x => x.item)
+      } else {
+        this.interestedBookmarks = this.recentlyBookmarks
+      }
     }, '搜索您的书签')
 
     document.onkeydown = this.keydown
